@@ -1,6 +1,6 @@
-const app = require('/src/app.js');
+const app = require('./app.js');
 
-init();
+init().then(() => console.log('Server Started'));
 
 async function init() {
   try {
