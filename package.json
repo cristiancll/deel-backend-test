@@ -6,7 +6,8 @@
     "body-parser": "^1.19.0",
     "express": "4.17.1",
     "sequelize": "^6.3.4",
-    "sqlite3": "^4.0.1"
+    "express-validator": "^6.15.0",
+    "http-status-codes": "^2.2.0"
   },
   "scripts": {
     "start": "nodemon ./src/server.js",
@@ -14,7 +15,8 @@
   },
   "devDependencies": {
     "concurrently": "4.1.0",
-    "nodemon": "1.19.1"
+    "nodemon": "1.19.1",
+    "sqlite3": "^4.0.1"
   },
   "engines": {
     "node": ">=10.16.3"
