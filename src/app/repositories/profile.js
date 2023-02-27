@@ -4,7 +4,7 @@ const ProfileRepository = {}
 
 ProfileRepository.find = async (id) => {
     return Profile.findOne({
-        where: id
+        where: { id }
     })
 }
 

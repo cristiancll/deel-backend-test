@@ -1,4 +1,5 @@
 const ContractService = require('../services/contract')
+const ApiError = require("../../utils/apiError.js");
 
 /**
  * FIX ME!
@@ -9,7 +10,7 @@ exports.getContractById = async (req, res, next) => {
     try {
         const contract = await ContractService.findById(id)
         if (!contract) {
-            return next(new Error("Contract not found"))
+            return next(ApiError.notFound("Contract not found"))
         }
         res.json(contract)
     } catch (error) {
