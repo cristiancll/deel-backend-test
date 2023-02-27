@@ -11,6 +11,14 @@ const ProfileType = {
     CONTRACTOR: "contractor"
 }
 
+const ProfileRole = {
+    // 'admin'
+    ADMIN: "admin",
+    // 'user'
+    USER: "user"
+}
+
+
 const ProfileFK = {
     // 'ClientId'
     CLIENT: "ClientId",
@@ -26,11 +34,6 @@ const ProfileReference = {
 }
 
 class Profile extends Sequelize.Model {}
-Profile.Types = {}
-Profile.Types.CLIENT = ProfileType.CLIENT
-Profile.Types.CONTRACTOR = ProfileType.CONTRACTOR
-
-
 Profile.init(
     {
         firstName: {
@@ -51,10 +54,14 @@ Profile.init(
         type: {
             type: Sequelize.ENUM(ProfileType.CLIENT, ProfileType.CONTRACTOR),
         },
+        role: {
+            type: Sequelize.ENUM(ProfileRole.ADMIN, ProfileRole.USER),
+            defaultValue: ProfileRole.USER
+        }
     },
     {
         sequelize,
         modelName: ProfileModel
     }
 );
-module.exports = {Profile, ProfileType, ProfileFK, ProfileReference}
+module.exports = {Profile, ProfileType, ProfileFK, ProfileReference, ProfileRole}

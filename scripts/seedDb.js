@@ -1,4 +1,4 @@
-const {Profile} = require("../src/app/models/profile.js");
+const {Profile, ProfileRole} = require("../src/app/models/profile.js");
 const {Contract} = require("../src/app/models/contract.js");
 const {Job} = require("../src/app/models/job.js");
 require('../src/app/associations.js')
@@ -19,7 +19,8 @@ async function seed() {
       lastName: 'Potter',
       profession: 'Wizard',
       balance: 1150,
-      type:'client'
+      type:'client',
+      role: ProfileRole.ADMIN 
     }),
     Profile.create({
       id: 2,

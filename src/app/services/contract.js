@@ -3,11 +3,14 @@ const ApiError = require("../../utils/apiError.js");
 
 const ContractService = {}
 
-ContractService.findById = async (id) => {
-    if (!id) {
-        throw ApiError.badRequest("Missing contract id")
+ContractService.findById = async (profileId, id) => {
+    if (!profileId) {
+        throw ApiError.badRequest("Missing profile id");
     }
-    return ContractRepository.find(id)
+    if (!id) {
+        throw ApiError.badRequest("Missing contract id");
+    }
+    return ContractRepository.find(profileId, id)
 }
 
 module.exports = ContractService

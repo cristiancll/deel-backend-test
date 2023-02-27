@@ -9,5 +9,11 @@ ProfileService.findById = async (id) => {
     }
     return ProfileRepository.find(id)
 }
+ProfileService.findAdminById = async (id) => {
+    if (!id) {
+        throw ApiError.badRequest("Missing profile id")
+    }
+    return ProfileRepository.findAdmin(id)
+}
 
 module.exports = ProfileService
