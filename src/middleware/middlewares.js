@@ -14,21 +14,7 @@ Middlewares.handleParamValidation = async (req, res, next) => {
     next()
 }
 
-Middlewares.errorHandler = async (err, req, res) => {
-    console.error(err.stack)
-    if (!err.statusCode) {
-        err.statusCode = 500
-    }
-    res.status(err.statusCode).json({
-        error: {
-            name: err.name,
-            statusCode: err.statusCode,
-            message: err.message,
-        },
-    })
-}
-
-Middlewares.getProfile = async (req, res, next) => {
+Middlewares.getUserProfile = async (req, res, next) => {
     const id = req.get('profile_id') || 0
     if (!id || id === 0) {
         return next(ApiError.badRequest("Missing required arguments"))
@@ -45,8 +31,39 @@ Middlewares.getProfile = async (req, res, next) => {
     }
 }
 
+Middlewares.getAdminProfile = async (req, res, next) => {
+    const id = req.get('profile_id') || 0
+    if (!id || id === 0) {
+        return next(ApiError.badRequest("Missing required arguments"))
+    }
+    try {
+        const profile = await ProfileService.findAdminById(id)
+        if(!profile) {
+            return next(ApiError.unauthorized("User is not an admin"))
+        }
+        req.profile = profile
+        return next()
+    } catch (err) {
+        return next(err)
+    }
+}
+
 Middlewares.notFoundRoute = async (req, res, next) => {
     return next(ApiError.badRequest("Route not found"))
+}
+
+Middlewares.errorHandler = async (err, req, res) => {
+    console.error(err.stack)
+    if (!err.statusCode) {
+        err.statusCode = 500
+    }
+    res.status(err.statusCode).json({
+        error: {
+            name: err.name,
+            statusCode: err.statusCode,
+            message: err.message,
+        },
+    })
 }
 
 module.exports = {Middlewares}
