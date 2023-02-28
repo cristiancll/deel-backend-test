@@ -51,8 +51,7 @@ Middlewares.notFoundRoute = async (req, res, next) => {
   return next(ApiError.badRequest("Route not found"));
 };
 
-Middlewares.errorHandler = async (err, req, res) => {
-  console.error(err.stack);
+Middlewares.errorHandler = async (err, req, res, next) => {
   if (!err.statusCode) {
     err.statusCode = 500;
   }
@@ -65,4 +64,4 @@ Middlewares.errorHandler = async (err, req, res) => {
   });
 };
 
-module.exports = {Middlewares}
+module.exports = { Middlewares };
